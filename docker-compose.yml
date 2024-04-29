@@ -2,16 +2,18 @@ services:
   api:
     container_name: mcs-backend
     build: ./
-    depends_on: [ postgres ]
+    depends_on:
+      - postgres
     volumes:
       - .:/api
     ports:
       - "3000:3000"
     
   postgres:
-    container_name: postgresql
+    container_name: postgres
     image: postgres:latest
     environment:
+      POSTGRES_HOST: db
       POSTGRES_USER: lelouch
       POSTGRES_PASSWORD: 123456
       POSTGRES_DB: mydatabase
@@ -20,6 +22,14 @@ services:
     ports:
       - "5432:5432"
     restart: always
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
 
 volumes:
   postgres-data:
