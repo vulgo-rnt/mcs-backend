@@ -3,10 +3,17 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { McsModule } from './mcs/mcs.module';
+import { VideosModule } from './videos/videos.module';
+import { BattlesModule } from './battles/battles.module';
 import sequelizeConfig from './config/ormconfig';
 
 @Module({
-  imports: [SequelizeModule.forRoot(sequelizeConfig), McsModule],
+  imports: [
+    SequelizeModule.forRoot(sequelizeConfig),
+    McsModule,
+    VideosModule,
+    BattlesModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
