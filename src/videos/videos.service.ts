@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Video } from './entities/video.entity';
 import { InjectModel } from '@nestjs/sequelize';
+import { Mc } from 'src/mcs/entities/mc.entity';
 
 @Injectable()
 export class VideosService {
@@ -13,20 +14,22 @@ export class VideosService {
     const video = new Video(videoData);
     return await video.save();
   }
-
   async findAll(): Promise<Video[]> {
-    return this.videoModel.findAll();
+    return this.videoModel.findAll({});
   }
 
-  async findOne(id: number): Promise<Video> {
-    return this.videoModel.findOne({ where: { id } });
+  async findOne(_videoId: string): Promise<Video> {
+    return this.videoModel.findOne({
+      where: { _videoId },
+      include: [{ model: Mc }],
+    });
   }
 
-  async update(id: number, videoData): Promise<[number, Video[]]> {
+  async update(_videoId: string, videoData): Promise<[number, Video[]]> {
     const [affectedCount, affectedRows] = await this.videoModel.update(
       videoData,
       {
-        where: { id },
+        where: { _videoId },
         returning: true,
       },
     );
@@ -34,7 +37,6 @@ export class VideosService {
   }
 
   async delete(_videoId: string): Promise<number> {
-    console.log(_videoId);
     return this.videoModel.destroy({ where: { _videoId } });
   }
 }

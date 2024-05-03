@@ -15,6 +15,10 @@ export class VideosController {
   findAll() {
     return this.videosService.findAll();
   }
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.videosService.findOne(id);
+  }
   @Delete(':_videoId')
   delete(@Param('_videoId') _videoId: string) {
     return this.videosService.delete(_videoId);
