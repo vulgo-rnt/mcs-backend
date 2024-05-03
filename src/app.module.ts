@@ -1,13 +1,19 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+
 import { SequelizeModule } from '@nestjs/sequelize';
 import { McsModule } from './mcs/mcs.module';
-import sequelizeConfig from './config/ormconfig';
+import { VideosModule } from './videos/videos.module';
+import { BattlesModule } from './battles/battles.module';
+import sequelizeConfig from '../config/ormconfig';
+import { McVideoModule } from './ associative/mcVideo.module';
 
 @Module({
-  imports: [SequelizeModule.forRoot(sequelizeConfig), McsModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    SequelizeModule.forRoot(sequelizeConfig),
+    McsModule,
+    VideosModule,
+    BattlesModule,
+    McVideoModule,
+  ],
 })
 export class AppModule {}
