@@ -1,5 +1,4 @@
 import { SequelizeModuleOptions } from '@nestjs/sequelize';
-import { Mc } from 'src/mcs/entities/mc.entity';
 
 const config: SequelizeModuleOptions = {
   dialect: 'postgres',
@@ -10,7 +9,6 @@ const config: SequelizeModuleOptions = {
   database: 'mydatabase',
   autoLoadModels: true,
   synchronize: true,
-  models: [Mc],
 };
 
 export default config;
