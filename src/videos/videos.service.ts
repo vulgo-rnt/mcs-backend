@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { Video } from './entities/video.entity';
 import { InjectModel } from '@nestjs/sequelize';
 import { Mc } from 'src/mcs/entities/mc.entity';
-import { QueryPagination } from 'src/types/query-pagination';
-import { QuerySearch } from 'src/types/query-search';
+import { QueryPagination } from 'src/@types/query-pagination';
+import { QuerySearch } from 'src/@types/query-search';
 import { OrderItem } from 'sequelize';
 
 @Injectable()

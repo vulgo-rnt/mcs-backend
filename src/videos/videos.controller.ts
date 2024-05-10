@@ -9,8 +9,8 @@ import {
 } from '@nestjs/common';
 import { VideosService } from './videos.service';
 import { Video } from './entities/video.entity';
-import { QueryPagination } from 'src/types/query-pagination';
-import { QuerySearch } from 'src/types/query-search';
+import { QueryPagination } from 'src/@types/query-pagination';
+import { QuerySearch } from 'src/@types/query-search';
 
 @Controller('videos')
 export class VideosController {

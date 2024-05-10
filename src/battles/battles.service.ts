@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Battle } from './entities/battle.entity';
-import { QueryPagination } from 'src/types/query-pagination';
+import { QueryPagination } from 'src/@types/query-pagination';
 
 @Injectable()
 export class BattlesService {
