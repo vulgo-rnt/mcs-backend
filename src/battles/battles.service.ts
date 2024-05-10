@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Battle } from './entities/battle.entity';
-import { Video } from 'src/videos/entities/video.entity';
+import { QueryPagination } from 'src/types/query-pagination';
 
 @Injectable()
 export class BattlesService {
@@ -15,16 +15,22 @@ export class BattlesService {
     return await battle.save();
   }
 
-  async findAll(): Promise<Battle[]> {
-    return this.battleModel.findAll();
+  async findAll(query?: QueryPagination): Promise<Battle[]> {
+    if (!query.page || !query.limit) {
+      return this.battleModel.findAll();
+    } else {
+      const limit = query.limit;
+      const offset = (query.page - 1) * limit;
+      return this.battleModel.findAll({ limit, offset });
+    }
   }
 
   async findOne(_battleId: string): Promise<Battle> {
     return this.battleModel.findOne({
-      include: [{ model: Video }],
       where: { _battleId },
     });
   }
+
   async delete(_battleId: string): Promise<number> {
     return this.battleModel.destroy({ where: { _battleId } });
   }
