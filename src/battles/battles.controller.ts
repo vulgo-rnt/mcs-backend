@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { BattlesService } from './battles.service';
 import { Battle } from './entities/battle.entity';
-import { QueryPagination } from 'src/types/query-pagination';
+import { QueryPagination } from 'src/@types/query-pagination';
 
 @Controller('battles')
 export class BattlesController {
