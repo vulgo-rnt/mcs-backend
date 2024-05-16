@@ -25,6 +25,10 @@ export class BattlesService {
     }
   }
 
+  async findAllId(): Promise<Pick<Battle, '_battleId' | 'name'>[]> {
+    return this.battleModel.findAll({ attributes: ['_battleId', 'name'] });
+  }
+
   async findOne(_battleId: string): Promise<Battle> {
     return this.battleModel.findOne({
       where: { _battleId },
