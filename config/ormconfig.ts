@@ -9,6 +9,7 @@ const config: SequelizeModuleOptions = {
   database: 'mydatabase',
   autoLoadModels: true,
   synchronize: true,
+  logging: false,
 };
 
 export default config;

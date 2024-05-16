@@ -9,8 +9,8 @@ import {
 } from '@nestjs/common';
 import { VideosService } from './videos.service';
 import { Video } from './entities/video.entity';
-import { QueryPagination } from 'src/types/query-pagination';
-import { QuerySearch } from 'src/types/query-search';
+import { FindOptions } from 'sequelize';
+import { QueryPagination } from 'src/@types/query-pagination';
 
 @Controller('videos')
 export class VideosController {
@@ -37,7 +37,7 @@ export class VideosController {
   }
 
   @Post('search')
-  search(@Body() query: QuerySearch) {
+  search(@Body() query: FindOptions<Video>) {
     return this.videosService.search(query);
   }
 }

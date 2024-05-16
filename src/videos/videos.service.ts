@@ -2,9 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { Video } from './entities/video.entity';
 import { InjectModel } from '@nestjs/sequelize';
 import { Mc } from 'src/mcs/entities/mc.entity';
-import { QueryPagination } from 'src/types/query-pagination';
-import { QuerySearch } from 'src/types/query-search';
-import { OrderItem } from 'sequelize';
+import { QueryPagination } from 'src/@types/query-pagination';
+import { FindOptions, OrderItem } from 'sequelize';
 
 @Injectable()
 export class VideosService {
@@ -19,13 +18,14 @@ export class VideosService {
   }
 
   async findAll(query?: QueryPagination): Promise<Video[]> {
-    if (!query.limit && !query.order && !query.page) {
+    if (!query.limit && !query.ord && !query.page) {
       return this.videoModel.findAll();
     }
 
-    const order = [['date', query.order.toUpperCase()]] as OrderItem[];
+    const order =
+      query.ord && ([['date', query.ord.toUpperCase()]] as OrderItem[]);
     const limit = query.limit;
-    const offset = (query.page - 1) * limit;
+    const offset = query.page && (query.page - 1) * limit;
 
     return this.videoModel.findAll({
       limit,
@@ -56,7 +56,7 @@ export class VideosService {
     return this.videoModel.destroy({ where: { _videoId } });
   }
 
-  async search(query: QuerySearch): Promise<Video[]> {
+  async search(query: FindOptions<Video>): Promise<Video[]> {
     return this.videoModel.findAll(query);
   }
 }
